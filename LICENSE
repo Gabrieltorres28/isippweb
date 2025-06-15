@@ -1,6 +1,6 @@
 MIT License
 
-Copyright (c) 2025 Gabriel Agustín Torres/Angel Agustín Waidelich
+Copyright (c) 2025 Gabriel Agustín Torres
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -19,4 +19,13 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+NOTICE:
+
+Este proyecto fue creado por Gabriel Agustín Torres (c) 2025 y publicado bajo la Licencia MIT para fines educativos, personales o de colaboración abierta y respetuosa. Cualquier despliegue público del software —modificado o no— que represente instituciones, marcas o servicios asociados al Instituto Superior de Puerto Piray (ISIPP) deberá contar con el consentimiento explícito del autor.
+
+El uso del código con fines institucionales, comerciales, políticos o de representación pública sin la debida atribución y autorización, será considerado un uso indebido que podrá ser denunciado ante los organismos correspondientes (incluyendo GitHub y Vercel) por violación del espíritu de la licencia.
+
+El autor se reserva el derecho moral de atribución sobre la obra original, conforme al artículo 11 del Convenio de Berna y la legislación vigente en la República Argentina.
+
 
