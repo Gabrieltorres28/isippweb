@@ -22,7 +22,7 @@ export default function DesarrolladoPor() {
       email: "agustinpiraywa@gmail.com",
       github: "https://github.com/Gabrieltorres28",
       linkedin: "https://www.linkedin.com/in/gabriel-torres-4b652a284/",
-      portfolio: "v0-agustin-torres-portfolio.vercel.app"
+      portfolio: "https://v0-agustin-torres-portfolio.vercel.app"
     }
   ]
 
