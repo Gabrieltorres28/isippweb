@@ -86,7 +86,7 @@ export const FormulariosInscripcion = () => {
             </div>
             <h3 className="text-xl font-semibold mt-2">Inscripción al Cuatrimestre</h3>
             <p className="text-muted-foreground mt-2 text-sm">
-              Accedé al formulario de inscripción al primer cuatrimestre
+              Accedé al formulario de inscripción al cuatrimestre
             </p>
             <div className="mt-4 text-sm text-primary font-medium flex items-center">
               Acceder al formulario
