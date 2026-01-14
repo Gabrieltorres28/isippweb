@@ -4,6 +4,7 @@ import { useState } from "react"
 import { motion } from "framer-motion"
 import { useForm } from "react-hook-form"
 import { CheckCircle } from "lucide-react"
+import emailjs from "@emailjs/browser"
 
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -32,6 +33,11 @@ export function ContactForm() {
     watch,
   } = useForm<FormData>()
 
+  const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || "service_2cud1ij"
+  const templateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID || "template_51yca84"
+  const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || "I-Z7Tyxj1k_O9tC8P"
+  const toEmail = process.env.NEXT_PUBLIC_CONTACT_TO || "info@isipp1206.edu.ar"
+
   const careerValue = watch("career")
 
   const handleCareerChange = (value: string) => {
@@ -43,17 +49,22 @@ export function ContactForm() {
     setError(null)
 
     try {
-      const resp = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-      })
+      const subject = `[Consulta] ${data.career} – ${data.name}`
 
-      if (!resp.ok) {
-        const message = await resp.json().catch(() => ({}))
-        const msgText = (message && (message.error || message.message)) || "No se pudo enviar el mensaje."
-        throw new Error(msgText)
-      }
+      await emailjs.send(
+        serviceId,
+        templateId,
+        {
+          from_name: data.name,
+          from_email: data.email,
+          reply_to: data.email,
+          career: data.career,
+          message: data.message,
+          subject,
+          to_email: toEmail,
+        },
+        publicKey
+      )
 
       setIsSubmitted(true)
       reset()
