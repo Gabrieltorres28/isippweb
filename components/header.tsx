@@ -19,7 +19,7 @@ type NavItem = {
     label: string
     href: string
     description?: string
-    action?: () => void
+    sectionId?: string
   }[]
 }
 
@@ -57,34 +57,29 @@ export function Header({ forceDark = false }: HeaderProps) {
     }, 150)
   }
 
-// En la función handleNavClick del Header:
-const handleNavClick = (e: React.MouseEvent, href: string, sectionId?: string, action?: () => void) => {
-  e.preventDefault();
-  setActiveDropdown(null);
+  // En la función handleNavClick del Header:
+  const handleNavClick = (e: React.MouseEvent, href: string, sectionId?: string) => {
+    e.preventDefault();
+    setActiveDropdown(null);
   
-  if (action) {
-    action();
-    return;
-  }
-
-  if (sectionId) {
-    if (href === "#") {
-      // Scroll interno en la misma página
-      scrollToSection(sectionId);
-    } else if (pathname === href.split('#')[0]) {
-      // Misma página, diferente hash
-      scrollToSection(sectionId);
-      
-      // Forzar actualización si ya está en la misma página
-      window.dispatchEvent(new CustomEvent('hashChanged'));
+    if (sectionId) {
+      if (href === "#") {
+        // Scroll interno en la misma página
+        scrollToSection(sectionId);
+      } else if (pathname === href.split('#')[0]) {
+        // Misma página, diferente hash
+        scrollToSection(sectionId);
+        
+        // Forzar actualización si ya está en la misma página
+        window.dispatchEvent(new CustomEvent('hashChanged'));
+      } else {
+        // Navegación a otra página
+        router.push(`${href}#${sectionId}`);
+      }
     } else {
-      // Navegación a otra página
-      router.push(`${href}#${sectionId}`);
+      router.push(href);
     }
-  } else {
-    router.push(href);
   }
-}
   // Variantes de animación
   const menuItemVariants = {
     initial: { opacity: 0, y: -5 },
@@ -140,21 +135,21 @@ const handleNavClick = (e: React.MouseEvent, href: string, sectionId?: string, a
       children: [
         {
           label: "Misión y Visión",
-          href: "/institucional#mision-vision",
-          description: "Conoce nuestras metas a futuro",
-          action: () => scrollToSection("mision-vision")
+          href: "/institucional",
+          sectionId: "mision-vision",
+          description: "Conoce nuestras metas a futuro"
         },
         {
           label: "Historia",
-          href: "/institucional#historia",
-          description: "La historia detras de esta institucion",
-          action: () => scrollToSection("historia")
+          href: "/institucional",
+          sectionId: "historia",
+          description: "La historia detras de esta institucion"
         },
         {
           label: "Desarrollado Por",
-          href: "/institucional#desarrollado-por",
-          description: "Quienes fueron los creadores de este sitio",
-          action: () => scrollToSection("desarrollado-por")
+          href: "/institucional",
+          sectionId: "desarrollado-por",
+          description: "Quienes fueron los creadores de este sitio"
         }
       ]
     }
@@ -234,7 +229,7 @@ const handleNavClick = (e: React.MouseEvent, href: string, sectionId?: string, a
                           <motion.a
                             key={child.label}
                             href={child.href}
-                            onClick={(e) => child.action ? child.action() : handleNavClick(e, child.href)}
+                            onClick={(e) => handleNavClick(e, child.href, child.sectionId)}
                             className="block rounded-md px-3 py-2 text-sm text-zinc-800 hover:bg-zinc-100 dark:text-white dark:hover:bg-zinc-700"
                             variants={dropdownItemVariants}
                             custom={childIndex}
@@ -303,7 +298,7 @@ const handleNavClick = (e: React.MouseEvent, href: string, sectionId?: string, a
                             key={child.label}
                             variant="ghost"
                             className="w-full justify-start px-0 py-1.5 text-sm text-zinc-600 hover:text-primary dark:text-zinc-300"
-                            onClick={(e) => child.action ? child.action() : handleNavClick(e, child.href)}
+                            onClick={(e) => handleNavClick(e, child.href, child.sectionId)}
                           >
                             {child.label}
                           </Button>
