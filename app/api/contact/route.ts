@@ -5,7 +5,7 @@ const EMAILJS_ENDPOINT = "https://api.emailjs.com/api/v1.0/email/send"
 // Fallbacks listos para usar si no hay variables de entorno cargadas
 const DEFAULT_SERVICE_ID = "service_2cud1ij"
 const DEFAULT_TEMPLATE_ID = "template_j6mhjm"
-const DEFAULT_PUBLIC_KEY = "I-Z7Tyxj1k_O9tC8P"
+const DEFAULT_PUBLIC_KEY = "YyD3pCcHT45Om4qyv"
 const DEFAULT_TO = "info@isipp1206.edu.ar"
 
 export async function POST(req: Request) {
