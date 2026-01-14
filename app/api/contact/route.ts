@@ -14,7 +14,7 @@ export async function POST(req: Request) {
       )
     }
 
-    const serviceId = process.env.EMAILJS_SERVICE_ID || "service_r02i4mj"
+    const serviceId = process.env.EMAILJS_SERVICE_ID || "service_2cud1ij"
     const templateId = process.env.EMAILJS_TEMPLATE_ID || "template_51yca84"
     const publicKey = process.env.EMAILJS_PUBLIC_KEY || "I-Z7Tyxj1k_O9tC8P"
     const toEmail = process.env.CONTACT_TO || "info@isipp1206.edu.ar"
