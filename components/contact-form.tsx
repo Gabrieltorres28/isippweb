@@ -1,10 +1,9 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import { motion } from "framer-motion"
 import { useForm } from "react-hook-form"
 import { CheckCircle } from "lucide-react"
-import emailjs from "@emailjs/browser"
 
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -23,7 +22,6 @@ export function ContactForm() {
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
-  const [selectedCareer, setSelectedCareer] = useState<string>("")
 
   const {
     register,
@@ -34,18 +32,10 @@ export function ContactForm() {
     watch,
   } = useForm<FormData>()
 
-  // Initialize EmailJS
-  useEffect(() => {
-    emailjs.init("I-Z7Tyxj1k_O9tC8P")
-  }, [])
-
-  // Watch the career field for changes
   const careerValue = watch("career")
 
-  // Update the career value when selected from dropdown
   const handleCareerChange = (value: string) => {
-    setValue("career", value)
-    setSelectedCareer(value)
+    setValue("career", value, { shouldValidate: true })
   }
 
   const onSubmit = async (data: FormData) => {
@@ -53,27 +43,27 @@ export function ContactForm() {
     setError(null)
 
     try {
-      // Create subject line based on selected career
-      const subjectLine = `[Consulta] ${data.career} – ${data.name}`
+      const resp = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      })
 
-      // Prepare template parameters
-      const templateParams = {
-        from_name: data.name,
-        from_email: data.email,
-        career: data.career,
-        message: data.message,
-        subject: subjectLine,
+      if (!resp.ok) {
+        const message = await resp.text()
+        throw new Error(message || "No se pudo enviar el mensaje.")
       }
-
-      // Send email using EmailJS
-      await emailjs.send("service_r02i4mj", "template_51yca84", templateParams, "I-Z7Tyxj1k_O9tC8P")
 
       setIsSubmitted(true)
       reset()
       setTimeout(() => setIsSubmitted(false), 5000)
     } catch (err) {
-      console.error("Error sending email:", err)
-      setError("Hubo un problema al enviar tu mensaje. Por favor intenta nuevamente.")
+      console.error("Error enviando contacto:", err)
+      setError(
+        err instanceof Error
+          ? err.message
+          : "Hubo un problema al enviar tu mensaje. Por favor intenta nuevamente."
+      )
     } finally {
       setIsLoading(false)
     }
