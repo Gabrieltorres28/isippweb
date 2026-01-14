@@ -3,7 +3,7 @@ import { NextResponse } from "next/server"
 const EMAILJS_ENDPOINT = "https://api.emailjs.com/api/v1.0/email/send"
 
 // Fallbacks listos para usar si no hay variables de entorno cargadas
-const DEFAULT_SERVICE_ID = "service_2cud1ij"
+const DEFAULT_SERVICE_ID = "service_idvo8hx"
 const DEFAULT_TEMPLATE_ID = "template_51yca84"
 const DEFAULT_PUBLIC_KEY = "I-Z7Tyxj1k_O9tC8P"
 const DEFAULT_TO = "info@isipp1206.edu.ar"
