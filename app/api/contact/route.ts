@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server"
-import nodemailer from "nodemailer"
 
-const requiredEnv = ["SMTP_HOST", "SMTP_PORT", "SMTP_USER", "SMTP_PASS"]
+const EMAILJS_ENDPOINT = "https://api.emailjs.com/api/v1.0/email/send"
 
 export async function POST(req: Request) {
   try {
@@ -15,53 +14,44 @@ export async function POST(req: Request) {
       )
     }
 
-    const missing = requiredEnv.filter((k) => !process.env[k])
-    if (missing.length) {
-      console.error("[contact] Faltan variables:", missing.join(", "))
-      return NextResponse.json(
-        { error: "Servicio de correo no configurado. Contacta al administrador." },
-        { status: 500 }
-      )
-    }
+    const serviceId = process.env.EMAILJS_SERVICE_ID || "service_r02i4mj"
+    const templateId = process.env.EMAILJS_TEMPLATE_ID || "template_51yca84"
+    const publicKey = process.env.EMAILJS_PUBLIC_KEY || "I-Z7Tyxj1k_O9tC8P"
+    const toEmail = process.env.CONTACT_TO || "info@isipp1206.edu.ar"
 
-    const transporter = nodemailer.createTransport({
-      host: process.env.SMTP_HOST,
-      port: Number(process.env.SMTP_PORT) || 587,
-      secure: process.env.SMTP_SECURE === "true",
-      auth: {
-        user: process.env.SMTP_USER,
-        pass: process.env.SMTP_PASS,
-      },
-    })
-
-    const to = process.env.CONTACT_TO || "info@isipp1206.edu.ar"
     const subject = `[Consulta web] ${career} – ${name}`
 
-    await transporter.sendMail({
-      from: process.env.SMTP_FROM || process.env.SMTP_USER,
-      to,
-      replyTo: email,
-      subject,
-      text: `
-Nombre: ${name}
-Email: ${email}
-Carrera: ${career}
+    const payload = {
+      service_id: serviceId,
+      template_id: templateId,
+      user_id: publicKey,
+      template_params: {
+        from_name: name,
+        from_email: email,
+        career,
+        message,
+        subject,
+        to_email: toEmail,
+      },
+    }
 
-Mensaje:
-${message}
-`,
-      html: `
-        <p><strong>Nombre:</strong> ${name}</p>
-        <p><strong>Email:</strong> ${email}</p>
-        <p><strong>Carrera:</strong> ${career}</p>
-        <p><strong>Mensaje:</strong></p>
-        <p>${message.replace(/\n/g, "<br/>")}</p>
-      `,
+    const resp = await fetch(EMAILJS_ENDPOINT, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
     })
+
+    if (!resp.ok) {
+      const text = await resp.text()
+      throw new Error(text || "No se pudo enviar el mensaje.")
+    }
 
     return NextResponse.json({ ok: true })
   } catch (error) {
     console.error("[contact] Error enviando mensaje", error)
-    return NextResponse.json({ error: "No pudimos enviar el mensaje" }, { status: 500 })
+    return NextResponse.json(
+      { error: "No pudimos enviar el mensaje. Intenta nuevamente o escribe a info@isipp1206.edu.ar" },
+      { status: 500 }
+    )
   }
 }

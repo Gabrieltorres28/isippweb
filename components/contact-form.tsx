@@ -50,8 +50,9 @@ export function ContactForm() {
       })
 
       if (!resp.ok) {
-        const message = await resp.text()
-        throw new Error(message || "No se pudo enviar el mensaje.")
+        const message = await resp.json().catch(() => ({}))
+        const msgText = (message && (message.error || message.message)) || "No se pudo enviar el mensaje."
+        throw new Error(msgText)
       }
 
       setIsSubmitted(true)
