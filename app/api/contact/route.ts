@@ -34,6 +34,7 @@ export async function POST(req: Request) {
       template_params: {
         from_name: name,
         from_email: email,
+        reply_to: email,
         career,
         message,
         subject,
@@ -59,7 +60,11 @@ export async function POST(req: Request) {
     if (!resp.ok) {
       const text = await resp.text()
       console.error("[contact] EmailJS error", resp.status, text)
-      throw new Error(text || "No se pudo enviar el mensaje.")
+      // EmailJS suele devolver un texto plano con info; la retornamos en json
+      return NextResponse.json(
+        { error: text || "No se pudo enviar el mensaje a EmailJS." },
+        { status: resp.status }
+      )
     }
 
     return NextResponse.json({ ok: true })
