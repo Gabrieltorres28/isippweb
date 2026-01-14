@@ -14,17 +14,30 @@ export async function POST(req: Request) {
       )
     }
 
-    const serviceId = process.env.EMAILJS_SERVICE_ID || "service_2cud1ij"
-    const templateId = process.env.EMAILJS_TEMPLATE_ID || "template_51yca84"
-    const publicKey = process.env.EMAILJS_PUBLIC_KEY || "I-Z7Tyxj1k_O9tC8P"
+    const serviceId = process.env.EMAILJS_SERVICE_ID
+    const templateId = process.env.EMAILJS_TEMPLATE_ID
+    const publicKey = process.env.EMAILJS_PUBLIC_KEY
+    const privateKey = process.env.EMAILJS_PRIVATE_KEY
     const toEmail = process.env.CONTACT_TO || "info@isipp1206.edu.ar"
+
+    if (!serviceId || !templateId || !(publicKey || privateKey)) {
+      console.error("[contact] Faltan credenciales EmailJS", {
+        hasService: !!serviceId,
+        hasTemplate: !!templateId,
+        hasPublic: !!publicKey,
+        hasPrivate: !!privateKey,
+      })
+      return NextResponse.json(
+        { error: "Servicio de correo no configurado. Contacta al administrador." },
+        { status: 500 }
+      )
+    }
 
     const subject = `[Consulta web] ${career} – ${name}`
 
-    const payload = {
+    const payload: Record<string, unknown> = {
       service_id: serviceId,
       template_id: templateId,
-      user_id: publicKey,
       template_params: {
         from_name: name,
         from_email: email,
@@ -35,14 +48,24 @@ export async function POST(req: Request) {
       },
     }
 
+    if (privateKey) {
+      payload["accessToken"] = privateKey
+    } else {
+      payload["user_id"] = publicKey
+    }
+
     const resp = await fetch(EMAILJS_ENDPOINT, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        origin: req.headers.get("origin") || "http://localhost",
+      },
       body: JSON.stringify(payload),
     })
 
     if (!resp.ok) {
       const text = await resp.text()
+      console.error("[contact] EmailJS error", resp.status, text)
       throw new Error(text || "No se pudo enviar el mensaje.")
     }
 
