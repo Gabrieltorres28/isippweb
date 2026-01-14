@@ -2,6 +2,12 @@ import { NextResponse } from "next/server"
 
 const EMAILJS_ENDPOINT = "https://api.emailjs.com/api/v1.0/email/send"
 
+// Fallbacks listos para usar si no hay variables de entorno cargadas
+const DEFAULT_SERVICE_ID = "service_2cud1ij"
+const DEFAULT_TEMPLATE_ID = "template_51yca84"
+const DEFAULT_PUBLIC_KEY = "I-Z7Tyxj1k_O9tC8P"
+const DEFAULT_TO = "info@isipp1206.edu.ar"
+
 export async function POST(req: Request) {
   try {
     const body = await req.json()
@@ -14,24 +20,11 @@ export async function POST(req: Request) {
       )
     }
 
-    const serviceId = process.env.EMAILJS_SERVICE_ID
-    const templateId = process.env.EMAILJS_TEMPLATE_ID
-    const publicKey = process.env.EMAILJS_PUBLIC_KEY
+    const serviceId = process.env.EMAILJS_SERVICE_ID || DEFAULT_SERVICE_ID
+    const templateId = process.env.EMAILJS_TEMPLATE_ID || DEFAULT_TEMPLATE_ID
+    const publicKey = process.env.EMAILJS_PUBLIC_KEY || DEFAULT_PUBLIC_KEY
     const privateKey = process.env.EMAILJS_PRIVATE_KEY
-    const toEmail = process.env.CONTACT_TO || "info@isipp1206.edu.ar"
-
-    if (!serviceId || !templateId || !(publicKey || privateKey)) {
-      console.error("[contact] Faltan credenciales EmailJS", {
-        hasService: !!serviceId,
-        hasTemplate: !!templateId,
-        hasPublic: !!publicKey,
-        hasPrivate: !!privateKey,
-      })
-      return NextResponse.json(
-        { error: "Servicio de correo no configurado. Contacta al administrador." },
-        { status: 500 }
-      )
-    }
+    const toEmail = process.env.CONTACT_TO || DEFAULT_TO
 
     const subject = `[Consulta web] ${career} – ${name}`
 
