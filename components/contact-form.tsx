@@ -34,7 +34,7 @@ export function ContactForm() {
   } = useForm<FormData>()
 
   const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || "service_2cud1ij"
-  const templateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID || "template_51yca84"
+  const templateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID || "templatej6mhjm"
   const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || "I-Z7Tyxj1k_O9tC8P"
   const toEmail = process.env.NEXT_PUBLIC_CONTACT_TO || "info@isipp1206.edu.ar"
 
