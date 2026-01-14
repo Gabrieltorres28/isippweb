@@ -4,11 +4,12 @@ import InfoCard from "@/components/InfoCardTemp";
 
 interface SeguridadRequisitosVisionProps {
   className?: string;
+  id?: string;
 }
 
-export default function SeguridadRequisitosVision({ className }: SeguridadRequisitosVisionProps) {
+export default function SeguridadRequisitosVision({ className, id }: SeguridadRequisitosVisionProps) {
   return (
-    <section className={`py-16 bg-background text-foreground ${className || ""}`}>
+    <section id={id} className={`py-16 scroll-mt-24 section-gradient-2 text-foreground ${className || ""}`}>
       <div className="container mx-auto px-4 md:px-6 grid grid-cols-1 md:grid-cols-2 gap-8">
 
         <InfoCard
@@ -19,7 +20,6 @@ export default function SeguridadRequisitosVision({ className }: SeguridadRequis
             "✔ Interés por la prevención y seguridad laboral",
             
           ]}
-          className="bg-card text-card-foreground"
         />
 
         <InfoCard
@@ -30,7 +30,6 @@ export default function SeguridadRequisitosVision({ className }: SeguridadRequis
             "📌 <strong>Talleres prácticos</strong> en entornos simulados",
             "📌 <strong>Visitas técnicas</strong> a empresas e industrias",
           ]}
-          className="bg-card text-card-foreground"
         >
           🛡️ Formación teórico-práctica con enfoque profesional
         </InfoCard>
@@ -43,7 +42,6 @@ export default function SeguridadRequisitosVision({ className }: SeguridadRequis
             "✅ <strong>Amplio campo laboral:</strong> aplicable a todos los sectores productivos",
             "⚖️ <strong>Marco legal sólido:</strong> respaldado por leyes nacionales"
           ]}
-          className="bg-card text-card-foreground"
         />
 
         <InfoCard
@@ -56,15 +54,13 @@ export default function SeguridadRequisitosVision({ className }: SeguridadRequis
             "🧯 Control de cumplimiento normativo",
             "📊 Capacitación en seguridad para el personal"
           ]}
-          className="bg-card text-card-foreground"
         />
 
         <InfoCard
           title="Salida Laboral"
           icon="🏭"
-          className="bg-card text-card-foreground"
         >
-          <p className="text-lg text-muted-foreground">
+          <p className="text-lg text-gray-700 dark:text-gray-300">
             Podrás trabajar en empresas industriales, constructoras, hospitales, 
             entidades gubernamentales, aseguradoras o como consultor independiente 
             realizando auditorías y capacitaciones.
@@ -79,7 +75,6 @@ export default function SeguridadRequisitosVision({ className }: SeguridadRequis
             "✅ Matrícula en el Registro Nacional de Profesionales",
             "✅ Especializaciones en riesgos específicos"
           ]}
-          className="bg-card text-card-foreground"
         />
 
       </div>

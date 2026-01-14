@@ -17,8 +17,8 @@ export default function SeguridadPage() {
     offset: ["start start", "end start"],
   });
 
-  const y = useTransform(scrollYProgress, [0, 1], [0, -200]);
-  const scale = useTransform(scrollYProgress, [0, 1], [1, 1.2]);
+  const y = useTransform(scrollYProgress, [0, 1], [0, -120]);
+  const scale = useTransform(scrollYProgress, [0, 1], [1, 1.08]);
 
   return (
     <motion.div
@@ -36,7 +36,7 @@ export default function SeguridadPage() {
       >
         <motion.div 
           className="absolute inset-0 z-0 glow-border"
-          style={{ y, scale }}
+          style={{ y, scale, transformOrigin: "center" }}
         >
           <Image
             src="/seguridad_e_higiene_hero_section.jpeg" // Cambiar por imagen adecuada de higiene y seguridad
@@ -44,11 +44,11 @@ export default function SeguridadPage() {
             fill
             priority
             quality={100}
-            className="object-cover object-[20%_30%] card-content-transition"
+            className="object-cover object-center card-content-transition"
             sizes="100vw"
           />
           {/* Gradiente ajustado para transición suave */}
-          <div className="absolute inset-0 bg-gradient-to-b from-black/40 to-transparent" />
+          <div className="absolute inset-0 hero-overlay" />
         </motion.div>
 
         {/* Contenido sobre la imagen */}
@@ -62,12 +62,12 @@ export default function SeguridadPage() {
       </section>
 
       {/* Secciones siguientes */}
-      <SeguridadInfoSection className="section-gradient-1" />
-      <SeguridadRequisitosVision className="section-gradient-2 dark:bg-card" />
-      <SeguridadScheduleFragment className="bg-background dark:bg-popover" />
+      <SeguridadInfoSection id="carrera" className="section-gradient-1 scroll-mt-24" />
+      <SeguridadRequisitosVision id="requisitos" className="section-gradient-2 scroll-mt-24" />
+      <SeguridadScheduleFragment id="horarios" className="scroll-mt-24" />
       <CorrelativasVisual 
         carreraId="higiene" 
-        className="perspective-1000" 
+        className="perspective-1000 scroll-mt-24" 
       />
       <Footer />
     </motion.div>

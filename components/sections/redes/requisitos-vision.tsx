@@ -4,11 +4,12 @@ import InfoCard from "@/components/InfoCardTemp";
 
 interface RedesExtraInfoSectionProps {
   className?: string;
+  id?: string;
 }
 
-export default function RedesExtraInfoSection({ className }: RedesExtraInfoSectionProps) {
+export default function RedesExtraInfoSection({ className, id }: RedesExtraInfoSectionProps) {
   return (
-    <section className={`py-16 bg-background text-foreground ${className || ""}`}>
+    <section id={id} className={`py-16 scroll-mt-24 section-gradient-2 text-foreground ${className || ""}`}>
       <div className="container mx-auto px-4 md:px-6 grid grid-cols-1 md:grid-cols-2 gap-8">
 
         <InfoCard
@@ -18,7 +19,6 @@ export default function RedesExtraInfoSection({ className }: RedesExtraInfoSecti
             "✔ Educación Secundaria completa",
             "✔ Manejo básico de computadoras y conectividad a internet",
           ]}
-          className="bg-card text-card-foreground"
         />
 
         <InfoCard
@@ -29,7 +29,6 @@ export default function RedesExtraInfoSection({ className }: RedesExtraInfoSecti
             "📌 <strong>Material didáctico</strong> ",
             "📌 <strong>Acompañamiento docente</strong> ",
           ]}
-          className="bg-card text-card-foreground"
         >
           💻 Aprendé con apoyo constante.
         </InfoCard>
@@ -41,7 +40,6 @@ export default function RedesExtraInfoSection({ className }: RedesExtraInfoSecti
             "📈 <strong>Alta demanda laboral:</strong> el sector tecnológico está en auge",
             "✅ <strong>Competencia profesional:</strong> conocimientos aplicables"
           ]}
-          className="bg-card text-card-foreground"
         />
 
         <InfoCard
@@ -53,15 +51,13 @@ export default function RedesExtraInfoSection({ className }: RedesExtraInfoSecti
             "📡 Soporte técnico y resolución de problemas",
             "🧰 Mantenimiento de infraestructura digital",
           ]}
-          className="bg-card text-card-foreground"
         />
 
         <InfoCard
           title="Ámbitos de Trabajo"
           icon="🏢"
-          className="bg-card text-card-foreground"
         >
-          <p className="text-lg text-muted-foreground">
+          <p className="text-lg text-gray-700 dark:text-gray-300">
             Podés desempeñarte en empresas de telecomunicaciones, áreas de IT, instituciones educativas,
             organismos públicos o como técnico independiente.
           </p>

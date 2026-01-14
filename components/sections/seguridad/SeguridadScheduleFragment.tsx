@@ -6,9 +6,10 @@ import Image from "next/image";
 
 interface SeguridadScheduleFragmentProps {
   className?: string;
+  id?: string;
 }
 
-export default function SeguridadScheduleFragment({ className }: SeguridadScheduleFragmentProps) {
+export default function SeguridadScheduleFragment({ className, id }: SeguridadScheduleFragmentProps) {
   const [events, setEvents] = useState<ScheduleEvent[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -162,10 +163,10 @@ export default function SeguridadScheduleFragment({ className }: SeguridadSchedu
   };
 
   return (
-    <section className={`p-4 md:p-8 max-w-7xl mx-auto section-gradient-2 ${className || ""}`}>
-      <div className="bg-card rounded-xl shadow-lg p-6 glow-border">
+    <section id={id} className={`p-4 md:p-8 max-w-7xl mx-auto section-gradient-2 scroll-mt-24 ${className || ""}`}>
+      <div className="bg-white/90 dark:bg-zinc-900 rounded-xl shadow-lg p-6 glow-border border border-border">
         <div className="flex flex-col gap-4 mb-6">
-          <h2 className="text-3xl font-bold text-center md:text-left text-primary font-playfair">
+          <h2 className="text-3xl font-bold text-center md:text-left text-primary dark:text-primary-foreground font-playfair">
             🛡️ Horario de Higiene y Seguridad
           </h2>
           

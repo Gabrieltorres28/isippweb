@@ -90,5 +90,30 @@ body {
   }
   body {
     @apply bg-background text-foreground;
+    scroll-behavior: smooth;
+  }
+}
+
+@layer components {
+  .section-gradient-1 {
+    @apply bg-gradient-to-b from-white via-slate-50 to-white dark:from-zinc-900 dark:via-zinc-950 dark:to-zinc-900;
+  }
+
+  .section-gradient-2 {
+    @apply bg-gradient-to-b from-slate-50 via-white to-slate-100 dark:from-zinc-950 dark:via-zinc-900 dark:to-zinc-950;
+  }
+
+  .hero-overlay {
+    @apply bg-gradient-to-b from-black/45 via-black/25 to-white/10 dark:to-black/40;
+  }
+
+  .glow-border {
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .card-content-transition {
+    transition: transform 0.6s ease, filter 0.6s ease;
+    will-change: transform;
   }
 }

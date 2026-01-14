@@ -17,8 +17,8 @@ export default function AnalistaPage() {
     offset: ["start start", "end start"],
   });
 
-  const y = useTransform(scrollYProgress, [0, 1], [0, -200]);
-  const scale = useTransform(scrollYProgress, [0, 1], [1, 1.2]);
+  const y = useTransform(scrollYProgress, [0, 1], [0, -120]);
+  const scale = useTransform(scrollYProgress, [0, 1], [1, 1.08]);
 
   // Texto dividido para animación letra por letra
   const titleText = "Analista en Sistemas y Computación";
@@ -40,7 +40,7 @@ export default function AnalistaPage() {
       >
         <motion.div
           className="absolute inset-0 z-0 glow-border"
-          style={{ y, scale }}
+          style={{ y, scale, transformOrigin: "center" }}
         >
           <Image
             src="/analista_hero_section.jpeg"
@@ -48,10 +48,10 @@ export default function AnalistaPage() {
             fill
             priority
             quality={100}
-            className="object-cover object-[50%_30%] card-content-transition"
+            className="object-cover object-center card-content-transition"
             sizes="100vw"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/40 to-transparent" />
+          <div className="absolute inset-0 hero-overlay" />
         </motion.div>
 
         <div className="relative z-10 flex flex-col items-center justify-center h-full text-white px-4">
@@ -78,12 +78,12 @@ export default function AnalistaPage() {
       </section>
 
       {/* Secciones siguientes */}
-      <AnalistaInfoSection className="section-gradient-1" />
-      <AnalistaRequisitosVision className="section-gradient-2 dark:bg-card" />
-      <AnalistaScheduleFragment className="bg-background dark:bg-popover" />
+      <AnalistaInfoSection id="carrera" className="section-gradient-1 scroll-mt-24" />
+      <AnalistaRequisitosVision id="requisitos" className="section-gradient-2 scroll-mt-24" />
+      <AnalistaScheduleFragment id="horarios" className="scroll-mt-24" />
       <CorrelativasVisual 
         carreraId="sistemas" 
-        className="perspective-1000" 
+        className="perspective-1000 scroll-mt-24" 
       />
       <Footer />
     </motion.div>

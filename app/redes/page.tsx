@@ -17,8 +17,8 @@ export default function RedesPage() {
     offset: ["start start", "end start"],
   });
 
-  const y = useTransform(scrollYProgress, [0, 1], [0, -200]);
-  const scale = useTransform(scrollYProgress, [0, 1], [1, 1.2]);
+  const y = useTransform(scrollYProgress, [0, 1], [0, -120]);
+  const scale = useTransform(scrollYProgress, [0, 1], [1, 1.08]);
 
   return (
     <motion.div
@@ -35,8 +35,8 @@ export default function RedesPage() {
         className="relative h-screen w-full overflow-hidden"
       >
         <motion.div 
-          className="absolute inset-0 z-0 glow-border" // Añadiendo glow-border
-          style={{ y, scale }}
+          className="absolute inset-0 z-0 glow-border"
+          style={{ y, scale, transformOrigin: "center" }}
         >
           <Image
             src="/pararede.png"
@@ -44,11 +44,10 @@ export default function RedesPage() {
             fill
             priority
             quality={100}
-            className="object-cover object-[20%_30%] card-content-transition" // Añadiendo transición
+            className="object-cover object-center card-content-transition"
             sizes="100vw"
           />
-          {/* Gradiente ajustado para transición suave */}
-          <div className="absolute inset-0 bg-gradient-to-b from-black/40 to-transparent" />
+          <div className="absolute inset-0 hero-overlay" />
         </motion.div>
 
         {/* Contenido sobre la imagen */}
@@ -62,12 +61,12 @@ export default function RedesPage() {
       </section>
 
       {/* Secciones siguientes (pegadas sin espacio) */}
-      <RedesInfoSection className="section-gradient-1" /> {/* Aplicando gradiente */}
-      <RedesRequisitosVision className="section-gradient-2 dark:bg-card" /> {/* Estilos para modo oscuro */}
-      <RedesScheduleFragment className="bg-background dark:bg-popover" />
+      <RedesInfoSection id="carrera" className="section-gradient-1 scroll-mt-24" />
+      <RedesRequisitosVision id="requisitos" className="section-gradient-2 scroll-mt-24" />
+      <RedesScheduleFragment id="horarios" className="scroll-mt-24" />
       <CorrelativasVisual 
         carreraId="redes" 
-        className="perspective-1000" 
+        className="perspective-1000 scroll-mt-24"
       /> {/* Efecto 3D */}
       <Footer  /> {/* Usando variables de color */}
     </motion.div>
